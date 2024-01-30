@@ -1,5 +1,3 @@
-let tokenRes = null;
-
 /***********************************
 
     Handle send Messages to popup
@@ -35,18 +33,11 @@ function handleIncomingMessage(message, sender, sendResponse) {
     // Process the incoming message based on its content
     switch (message.action) {
 
-        // from popup.js
-        case "tokenSetup":
-            // receive token from popup
-            tokenRes = message.payload.token;
-            sendResponse({ message: 'serviceWorker: Token Received!' })
-            // send token to foreground 
-            let payload = { action: 'generatedToken', payload: { token: tokenRes } }
-            sendMessage(payload)
-        break;
-        
-        case "getSelectors":
-            sendMessage({action: "getSelectors"})
+        // from popup.js        
+        case "receiveText":
+            // send msg to foreground
+            sendMessage({action: "receiveText"})
+            // send response to popup.js
             sendResponse({ message: 'serviceWorker: Getting Selectors!' })
         break;
 
